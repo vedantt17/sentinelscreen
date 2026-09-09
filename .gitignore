@@ -10,7 +10,12 @@ htmlcov/
 # Generated data plane. Rebuilt byte-identically by `make run` from the seed,
 # so committing it would add ~15MB that carries no information the config does
 # not already determine.
-data/
+#
+# The leading slash anchors this to the repository root. Without it, git treats
+# `data/` as "any directory named data at any depth" and silently excludes
+# src/data/ — which is the package holding the generator and the schemas. That
+# mistake shipped once: CI could not import src.data and both jobs failed.
+/data/
 
 # Determinism harness scratch directories.
 outputs/_repro_a/
