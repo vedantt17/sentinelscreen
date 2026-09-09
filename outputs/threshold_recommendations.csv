@@ -1,0 +1,9 @@
+rule_id,param_name,baseline_value,recommended_value,baseline_alerts,recommended_alerts,baseline_recall,recommended_recall,marginal_reviews_per_extra_hit,cheapest_relaxation_reviews_per_hit,relaxation_affordable
+R01_STRUCTURING,min_txn_count,3.000000,3.000000,2304,2304,0.158151,0.158151,0.000000,337.000000,False
+R02_VELOCITY,min_passthrough_ratio,0.800000,0.800000,1347,1347,0.076642,0.076642,0.000000,42.500000,False
+R03_ROUND_DOLLAR,min_round_share,0.550000,0.550000,2163,2163,0.026764,0.026764,0.000000,inf,False
+R04_DORMANT_REACTIVATION,min_reactivation_amount,15000.000000,15000.000000,1188,1188,0.034063,0.034063,0.000000,518.000000,False
+R05_NEW_ACCOUNT_BURST,min_total_amount,25000.000000,25000.000000,480,480,0.006083,0.006083,0.000000,inf,False
+R06_COUNTERPARTY_CONCENTRATION,min_concentration,0.700000,0.700000,1358,1358,0.001217,0.001217,0.000000,337.000000,False
+R07_HIGH_RISK_CORRIDOR,min_corridor_share,0.300000,0.300000,4446,4446,0.172749,0.172749,0.000000,50.000000,False
+R08_CASH_INTENSITY,min_cash_share,0.650000,0.650000,774,774,0.064477,0.064477,0.000000,inf,False

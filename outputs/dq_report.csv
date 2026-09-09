@@ -1,0 +1,11 @@
+check_id,dimension,severity,description,failing_rows,status
+DQ01_CUSTOMER_PK_UNIQUE,uniqueness,BLOCKER,customer_id is unique across the customer master,0,PASS
+DQ02_TXN_PK_UNIQUE,uniqueness,BLOCKER,txn_id is unique across the transaction feed,0,PASS
+DQ03_TXN_CUSTOMER_FK,referential_integrity,BLOCKER,every transaction resolves to a known customer,0,PASS
+DQ04_MANDATORY_NULLS,completeness,BLOCKER,mandatory transaction fields are populated,0,PASS
+DQ05_AMOUNT_RANGE,validity,BLOCKER,transaction amounts are strictly positive and below the implausibility ceiling,0,PASS
+DQ06_TXN_DATE_WINDOW,validity,CRITICAL,transactions fall inside the declared observation window,0,PASS
+DQ07_CHANNEL_DOMAIN,validity,CRITICAL,channel and direction values sit inside the controlled vocabulary,0,PASS
+DQ08_COUNTRY_CODE_FORMAT,conformity,CRITICAL,counterparty country codes are ISO-3166 alpha-2 shaped,0,PASS
+DQ09_WATCHLIST_NAME_PRESENT,completeness,BLOCKER,every watchlist record carries a resolvable primary name,0,PASS
+DQ10_ACCOUNT_OPEN_BEFORE_TXN,consistency,WARNING,no transaction predates its account opening date,0,PASS

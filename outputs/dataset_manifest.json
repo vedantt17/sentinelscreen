@@ -1,0 +1,26 @@
+{
+  "attenuated_anomalies": 481,
+  "customers": 50000,
+  "injected_transactions": 17787,
+  "invisible_anomalies": 74,
+  "near_miss_cells": 6170,
+  "near_miss_rate": 0.030096,
+  "scored_customer_months": 205014,
+  "screening_near_misses": 1600,
+  "screening_true_matches": 140,
+  "seed": 20240613,
+  "transactions": 500000,
+  "true_anomaly_cells": 822,
+  "true_anomaly_rate": 0.004009,
+  "typology_counts": {
+    "dormant_reactivation": 84,
+    "high_risk_corridor": 163,
+    "layering": 100,
+    "rapid_movement": 163,
+    "sanctioned_counterparty": 97,
+    "structuring": 215
+  },
+  "watchlist_entities": 5000,
+  "window_end": "2025-01-01",
+  "window_start": "2024-01-01"
+}

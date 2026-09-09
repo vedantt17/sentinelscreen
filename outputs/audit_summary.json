@@ -1,0 +1,14 @@
+{
+  "by_decision": {
+    "DISCARD": 319,
+    "ESCALATE": 1187,
+    "REVIEW": 14876
+  },
+  "by_event_type": {
+    "SCREENING_ALERT": 2322,
+    "TM_ALERT": 14060
+  },
+  "head_hash": "516ebe018366054a8d5c6c14c745843ffd9a38cbffa0e1453dcc4181ee2b4998",
+  "records": 16382,
+  "run_id": "83db588d6f30def2"
+}

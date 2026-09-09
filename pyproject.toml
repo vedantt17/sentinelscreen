@@ -1,0 +1,48 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sentinelscreen"
+version = "1.0.0"
+description = "Sanctions screening and transaction monitoring reference implementation"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+include = ["src*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --strict-markers"
+markers = [
+    "slow: exercises the full 500k-transaction pipeline",
+    "determinism: asserts byte-identical artifacts across seeded runs",
+]
+filterwarnings = ["ignore::DeprecationWarning"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+disallow_any_generics = true
+no_implicit_reexport = true
+files = ["src"]
+
+# Third-party packages that ship no py.typed marker. Silencing the import
+# error is preferable to `Any`-typing our own call sites.
+[[tool.mypy.overrides]]
+module = [
+    "duckdb.*",
+    "metaphone.*",
+    "unidecode.*",
+    "sklearn.*",
+    "lightgbm.*",
+    "xgboost.*",
+    "matplotlib.*",
+    "pandas.*",
+    "scipy.*",
+]
+ignore_missing_imports = true
+
+[tool.coverage.run]
+source = ["src"]

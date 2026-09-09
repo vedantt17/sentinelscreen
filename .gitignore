@@ -1,0 +1,25 @@
+__pycache__/
+*.stackdump
+*.py[cod]
+.venv/
+.pytest_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Generated data plane. Rebuilt byte-identically by `make run` from the seed,
+# so committing it would add ~15MB that carries no information the config does
+# not already determine.
+data/
+
+# Determinism harness scratch directories.
+outputs/_repro_a/
+outputs/_repro_b/
+
+# Large row-level artefacts. The summary artefacts the README reads from ARE
+# committed, so the repository renders correctly without a pipeline run; the
+# per-alert detail behind them is regenerated on demand.
+outputs/screening_alerts.csv
+outputs/rule_alerts.csv
+outputs/audit_log.jsonl
+outputs/pipeline.log

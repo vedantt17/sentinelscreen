@@ -1,0 +1,253 @@
+{
+  "feature_count": 54,
+  "leakage_ceiling": 0.92,
+  "models": [
+    {
+      "at_alert_budget_5pct": {
+        "alert_rate": 0.049996,
+        "alert_volume": 2562,
+        "false_positive_ratio": 17.1702,
+        "false_positives": 2421,
+        "precision": 0.055035,
+        "recall": 0.635135,
+        "threshold": 0.006594,
+        "true_positives": 141
+      },
+      "at_target_recall": {
+        "alert_rate": 0.209273,
+        "alert_volume": 10724,
+        "false_positive_ratio": 55.7407,
+        "false_positives": 10535,
+        "precision": 0.017624,
+        "recall": 0.851351,
+        "threshold": 4.9e-05,
+        "true_positives": 189
+      },
+      "average_precision": 0.059846,
+      "model": "lightgbm",
+      "n_positive": 222,
+      "n_test": 51244,
+      "prevalence": 0.004332,
+      "roc_auc": 0.880122,
+      "top_features": [
+        {
+          "feature": "account_age_days",
+          "importance": 0.103129
+        },
+        {
+          "feature": "max_gap_days",
+          "importance": 0.071194
+        },
+        {
+          "feature": "amount_vs_trailing_mean",
+          "importance": 0.066355
+        },
+        {
+          "feature": "prior_month_amount",
+          "importance": 0.057677
+        },
+        {
+          "feature": "amount_vs_prior",
+          "importance": 0.053065
+        },
+        {
+          "feature": "month_of_year",
+          "importance": 0.04229
+        },
+        {
+          "feature": "peer_ratio_total_amount",
+          "importance": 0.042129
+        },
+        {
+          "feature": "peer_ratio_max_amount",
+          "importance": 0.034355
+        },
+        {
+          "feature": "total_amount",
+          "importance": 0.033839
+        },
+        {
+          "feature": "peer_ratio_avg_amount",
+          "importance": 0.031452
+        },
+        {
+          "feature": "max_amount",
+          "importance": 0.030516
+        },
+        {
+          "feature": "count_vs_prior",
+          "importance": 0.027355
+        },
+        {
+          "feature": "weekend_share",
+          "importance": 0.027323
+        },
+        {
+          "feature": "credit_amount",
+          "importance": 0.026968
+        },
+        {
+          "feature": "median_amount",
+          "importance": 0.026065
+        }
+      ]
+    },
+    {
+      "at_alert_budget_5pct": {
+        "alert_rate": 0.049996,
+        "alert_volume": 2562,
+        "false_positive_ratio": 13.8092,
+        "false_positives": 2389,
+        "precision": 0.067525,
+        "recall": 0.779279,
+        "threshold": 0.40078,
+        "true_positives": 173
+      },
+      "at_target_recall": {
+        "alert_rate": 0.118004,
+        "alert_volume": 6047,
+        "false_positive_ratio": 30.9947,
+        "false_positives": 5858,
+        "precision": 0.031255,
+        "recall": 0.851351,
+        "threshold": 0.068539,
+        "true_positives": 189
+      },
+      "average_precision": 0.080187,
+      "model": "xgboost",
+      "n_positive": 222,
+      "n_test": 51244,
+      "prevalence": 0.004332,
+      "roc_auc": 0.9153,
+      "top_features": [
+        {
+          "feature": "median_amount",
+          "importance": 0.227578
+        },
+        {
+          "feature": "night_share",
+          "importance": 0.031448
+        },
+        {
+          "feature": "card_share",
+          "importance": 0.026658
+        },
+        {
+          "feature": "near_ctr_count",
+          "importance": 0.026086
+        },
+        {
+          "feature": "round_share",
+          "importance": 0.022822
+        },
+        {
+          "feature": "cash_share",
+          "importance": 0.021355
+        },
+        {
+          "feature": "near_ctr_share",
+          "importance": 0.021251
+        },
+        {
+          "feature": "peer_ratio_cash_amount",
+          "importance": 0.02079
+        },
+        {
+          "feature": "segment_dormant_retail",
+          "importance": 0.020257
+        },
+        {
+          "feature": "total_amount",
+          "importance": 0.019763
+        },
+        {
+          "feature": "avg_amount",
+          "importance": 0.018728
+        },
+        {
+          "feature": "segment_cash_intensive",
+          "importance": 0.01858
+        },
+        {
+          "feature": "wire_share",
+          "importance": 0.018447
+        },
+        {
+          "feature": "passthrough_ratio",
+          "importance": 0.018323
+        },
+        {
+          "feature": "month_of_year",
+          "importance": 0.018304
+        }
+      ]
+    },
+    {
+      "at_alert_budget_5pct": {
+        "alert_rate": 0.049996,
+        "alert_volume": 2562,
+        "false_positive_ratio": 26.2553,
+        "false_positives": 2468,
+        "precision": 0.03669,
+        "recall": 0.423423,
+        "threshold": 0.473073,
+        "true_positives": 94
+      },
+      "at_target_recall": {
+        "alert_rate": 0.393529,
+        "alert_volume": 20166,
+        "false_positive_ratio": 105.6984,
+        "false_positives": 19977,
+        "precision": 0.009372,
+        "recall": 0.851351,
+        "threshold": 0.387584,
+        "true_positives": 189
+      },
+      "average_precision": 0.037022,
+      "model": "isolation_forest",
+      "n_positive": 222,
+      "n_test": 51244,
+      "prevalence": 0.004332,
+      "roc_auc": 0.829765,
+      "top_features": []
+    }
+  ],
+  "out_of_time": {
+    "at_alert_budget_5pct": {
+      "alert_rate": 0.049981,
+      "alert_volume": 674,
+      "false_positive_ratio": 10.6207,
+      "false_positives": 616,
+      "precision": 0.086053,
+      "recall": 0.852941,
+      "threshold": 0.446783,
+      "true_positives": 58
+    },
+    "at_target_recall": {
+      "alert_rate": 0.047164,
+      "alert_volume": 636,
+      "false_positive_ratio": 9.9655,
+      "false_positives": 578,
+      "precision": 0.091195,
+      "recall": 0.852941,
+      "threshold": 0.488968,
+      "true_positives": 58
+    },
+    "average_precision": 0.112493,
+    "model": "xgboost_out_of_time",
+    "n_positive": 68,
+    "n_test": 13485,
+    "prevalence": 0.005043,
+    "roc_auc": 0.961311,
+    "top_features": []
+  },
+  "split": {
+    "strategy": "grouped_by_customer",
+    "test_customers": 9297,
+    "test_rows": 51244,
+    "train_customers": 27889,
+    "train_rows": 153770
+  },
+  "target_recall": 0.85,
+  "unsupervised_ceiling": 0.93
+}

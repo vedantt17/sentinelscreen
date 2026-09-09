@@ -1,0 +1,26 @@
+{
+  "alias_names": 4645,
+  "blocking_recall": 0.992857,
+  "blocks_built": 8035,
+  "candidate_pairs": 6620807,
+  "distinct_candidate_pairs": 6620807,
+  "full_pair_space": 482250000,
+  "fully_scored_pairs": 1776274,
+  "largest_block": 231,
+  "max_candidates_per_query": 572,
+  "mean_candidates_per_query": 132.4161,
+  "n_query": 50000,
+  "n_reference": 9645,
+  "oversized_blocks_refined": 0,
+  "p95_candidates_per_query": 285.0,
+  "planted_pairs": 140,
+  "prefiltered_pairs": 4844533,
+  "reduction_pct": 98.6271,
+  "reduction_ratio": 0.986271,
+  "retained_after_blocking": 139,
+  "strategy_key_counts": {
+    "IB": 345,
+    "PS": 927,
+    "SP": 6763
+  }
+}

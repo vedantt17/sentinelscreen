@@ -1,0 +1,30 @@
+{
+  "blocking": {
+    "build_seconds": 0.1751,
+    "probe_seconds": 84.052
+  },
+  "data_quality": {
+    "DQ01_CUSTOMER_PK_UNIQUE": 0.0183,
+    "DQ02_TXN_PK_UNIQUE": 0.1321,
+    "DQ03_TXN_CUSTOMER_FK": 0.0778,
+    "DQ04_MANDATORY_NULLS": 0.0011,
+    "DQ05_AMOUNT_RANGE": 0.0009,
+    "DQ06_TXN_DATE_WINDOW": 0.0091,
+    "DQ07_CHANNEL_DOMAIN": 0.0544,
+    "DQ08_COUNTRY_CODE_FORMAT": 0.0633,
+    "DQ09_WATCHLIST_NAME_PRESENT": 0.0031,
+    "DQ10_ACCOUNT_OPEN_BEFORE_TXN": 0.089
+  },
+  "scenarios": {
+    "R01_STRUCTURING": 0.1108,
+    "R02_VELOCITY": 0.2941,
+    "R03_ROUND_DOLLAR": 0.1743,
+    "R04_DORMANT_REACTIVATION": 0.6139,
+    "R05_NEW_ACCOUNT_BURST": 0.1779,
+    "R06_COUNTERPARTY_CONCENTRATION": 0.4841,
+    "R07_HIGH_RISK_CORRIDOR": 0.2716,
+    "R08_CASH_INTENSITY": 0.4121
+  },
+  "screening_seconds": 84.052,
+  "total_seconds": 274.09
+}

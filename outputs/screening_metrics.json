@@ -1,0 +1,15 @@
+{
+  "alert_rate": 0.04434,
+  "alert_rows": 2322,
+  "alerted_subjects": 2217,
+  "detected_true_matches": 127,
+  "escalations": 1187,
+  "false_positive_ratio": 16.4567,
+  "near_miss_alert_rate": 0.075625,
+  "near_misses_alerted": 121,
+  "planted_near_misses": 1600,
+  "planted_true_matches": 140,
+  "precision": 0.057285,
+  "recall": 0.907143,
+  "threshold": 0.86
+}

@@ -1,0 +1,18 @@
+{
+  "anomaly_vs_near_miss_roc_auc": 0.459284,
+  "injected_vs_ordinary_roc_auc": 0.966275,
+  "mean_percentile": {
+    "invisible_positives": 0.530878,
+    "near_miss_cells": 0.954891,
+    "ordinary_cells": 0.48354,
+    "visible_positives": 0.957735
+  },
+  "model": "xgboost",
+  "n_anomaly": 222,
+  "n_invisible_positives": 23,
+  "n_near_miss": 1588,
+  "n_test": 51244,
+  "near_miss_separability_verdict": "indistinguishable",
+  "overall_roc_auc": 0.9153,
+  "visible_positive_vs_clean_roc_auc": 0.974062
+}

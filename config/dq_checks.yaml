@@ -1,0 +1,74 @@
+# Data-quality control set. Each check is executed as DuckDB SQL returning a
+# single failure count; severity drives whether the pipeline halts.
+# BLOCKER  -> pipeline aborts (the artefact would be unusable or misleading)
+# CRITICAL -> recorded, pipeline continues, surfaced at the top of the report
+# WARNING  -> recorded only
+checks:
+  - id: DQ01_CUSTOMER_PK_UNIQUE
+    dimension: uniqueness
+    severity: BLOCKER
+    description: customer_id is unique across the customer master
+    sql: SELECT COUNT(*) FROM (SELECT customer_id FROM customers GROUP BY 1 HAVING COUNT(*) > 1)
+
+  - id: DQ02_TXN_PK_UNIQUE
+    dimension: uniqueness
+    severity: BLOCKER
+    description: txn_id is unique across the transaction feed
+    sql: SELECT COUNT(*) FROM (SELECT txn_id FROM transactions GROUP BY 1 HAVING COUNT(*) > 1)
+
+  - id: DQ03_TXN_CUSTOMER_FK
+    dimension: referential_integrity
+    severity: BLOCKER
+    description: every transaction resolves to a known customer
+    sql: SELECT COUNT(*) FROM transactions t LEFT JOIN customers c USING (customer_id) WHERE c.customer_id IS NULL
+
+  - id: DQ04_MANDATORY_NULLS
+    dimension: completeness
+    severity: BLOCKER
+    description: mandatory transaction fields are populated
+    sql: SELECT COUNT(*) FROM transactions WHERE txn_ts IS NULL OR amount IS NULL OR channel IS NULL OR direction IS NULL
+
+  - id: DQ05_AMOUNT_RANGE
+    dimension: validity
+    severity: BLOCKER
+    description: transaction amounts are strictly positive and below the implausibility ceiling
+    sql: SELECT COUNT(*) FROM transactions WHERE amount <= 0 OR amount > 50000000
+
+  - id: DQ06_TXN_DATE_WINDOW
+    dimension: validity
+    severity: CRITICAL
+    description: transactions fall inside the declared observation window
+    sql: |
+      SELECT COUNT(*) FROM transactions
+      WHERE txn_ts < (SELECT MIN(window_start) FROM run_window)
+         OR txn_ts >= (SELECT MIN(window_end) FROM run_window)
+
+  - id: DQ07_CHANNEL_DOMAIN
+    dimension: validity
+    severity: CRITICAL
+    description: channel and direction values sit inside the controlled vocabulary
+    sql: |
+      SELECT COUNT(*) FROM transactions
+      WHERE channel NOT IN ('WIRE','ACH','CARD','CASH')
+         OR direction NOT IN ('CREDIT','DEBIT')
+
+  - id: DQ08_COUNTRY_CODE_FORMAT
+    dimension: conformity
+    severity: CRITICAL
+    description: counterparty country codes are ISO-3166 alpha-2 shaped
+    sql: SELECT COUNT(*) FROM transactions WHERE counterparty_country IS NOT NULL AND NOT regexp_matches(counterparty_country, '^[A-Z]{2}$')
+
+  - id: DQ09_WATCHLIST_NAME_PRESENT
+    dimension: completeness
+    severity: BLOCKER
+    description: every watchlist record carries a resolvable primary name
+    sql: SELECT COUNT(*) FROM watchlist WHERE primary_name IS NULL OR LENGTH(TRIM(primary_name)) = 0
+
+  - id: DQ10_ACCOUNT_OPEN_BEFORE_TXN
+    dimension: consistency
+    severity: WARNING
+    description: no transaction predates its account opening date
+    sql: |
+      SELECT COUNT(*) FROM transactions t
+      JOIN customers c USING (customer_id)
+      WHERE t.txn_ts < c.account_open_date

@@ -1,0 +1,74 @@
+# Sanctions screening engine configuration.
+# Version is stamped into every audit record; changing weights REQUIRES a bump
+# so that historical dispositions remain explainable under model governance.
+rule_version: "screening-v1.3.0"
+
+normalization:
+  honorifics: [mr, mrs, ms, miss, dr, prof, sir, madam, hon, rev, sheikh, shaikh,
+               sayyid, sayed, hajji, haji, al-hajj, mullah, imam, general, gen,
+               colonel, col, captain, capt, major, maj, lt, lieutenant, eng,
+               engineer, mohtaram, ustad, don, dona, sr, sra, srta, herr, frau]
+  corporate_suffixes: [llc, ltd, limited, inc, incorporated, corp, corporation,
+                       gmbh, ag, sa, sarl, bv, nv, plc, pte, pty, co, company,
+                       oao, ooo, zao, pjsc, jsc, kft, spa, srl, as, ab, oy]
+  strip_punctuation: true
+  collapse_whitespace: true
+  drop_single_char_tokens: false
+
+blocking:
+  # Blocking keys are OR-ed. Recall of the blocking stage is measured against
+  # the planted ground truth and reported in outputs/blocking_benchmark.json.
+  strategies: [phonetic_surname, sorted_phonetic_pair, initial_plus_sorted_bigram]
+  max_block_size: 250          # guards against pathological blocks e.g. "SMT"
+  # Two-stage cascade. Blocking still hands the scorer ~130 candidates per
+  # subject; scoring all of them with the full multi-signal comparison costs
+  # minutes per batch. A cheap order-invariant Jaro-Winkler pass, vectorised in
+  # C++, discards the obvious non-matches first. The cutoff is set well below
+  # the lowest score any planted true match achieves, and the recall cost of the
+  # cascade is measured and written to outputs/blocking_benchmark.json rather
+  # than assumed to be zero.
+  prefilter_jaro_winkler: 0.62
+  prefilter_max_candidates: 40
+  min_token_length: 2
+
+scoring:
+  weights:
+    jaro_winkler: 0.42
+    token_set: 0.24
+    phonetic: 0.22
+    initials: 0.12
+  jaro_winkler_prefix_weight: 0.1
+  # Corroboration is additive on the [0,1] name score, then clamped. DOB is the
+  # heaviest signal because OFAC publishes it for most individuals and an exact
+  # match is very unlikely by chance; a positive DOB mismatch is stronger
+  # evidence of a false positive than a missing DOB is of anything at all.
+  corroboration:
+    dob_exact_boost: 0.14
+    dob_year_only_boost: 0.05
+    dob_mismatch_penalty: -0.14
+    nationality_match_boost: 0.06
+    nationality_mismatch_penalty: -0.05
+    id_exact_boost: 0.30
+    missing_field_penalty: 0.0   # absent data is never treated as exculpatory
+  # Corroboration may de-prioritise a hit; it may never auto-clear one. An
+  # exact or near-exact name match against a designated party stays in the
+  # analyst queue even when the DOB and nationality disagree, because stale KYC
+  # data is a far more common explanation than coincidence at this name score.
+  strong_name_floor: 0.95
+  strong_name_floor_score: 0.80
+  # Weak-name guard: a single-token name is intrinsically low-information.
+  single_token_penalty: -0.10
+
+thresholds:
+  # Three-band disposition. The middle band is where an L1 analyst sits; the
+  # system never auto-clears or auto-blocks on score alone.
+  #
+  # The review threshold is chosen from evidence, not intuition:
+  # outputs/screening_threshold_sweep.csv shows 0.80 alerting 11.6% of the
+  # portfolio at a 44:1 review ratio for 0.921 recall, while 0.86 holds 0.907
+  # recall at 4.4% and 16:1. Three points of recall is a poor trade for two and
+  # a half times the queue, so the operating point sits at 0.86 and the sweep
+  # artefact is the audit trail for that decision.
+  auto_escalate: 0.92
+  review: 0.86
+  discard_below: 0.86
